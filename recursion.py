@@ -153,8 +153,6 @@ def _find_the_magic(A, start, end):
 # find_the_magic(A2)
 
 #return all subsets of a set
-
-
 def subsets(l):
     if l == []:
         return [[]]
@@ -163,4 +161,26 @@ def subsets(l):
 
     return x + [[l[0]] + y for y in x]
 
-print (subsets([1, 2, 3]))
+# print (subsets([1, 2, 3]))
+
+#Write a recursive function to multiply two positive integers without using the * operator
+def multiply(a, b):
+    bigger = max([a, b])
+    smaller = min([a, b])
+    return _multiply(smaller, bigger)
+
+def _multiply(smaller, bigger):
+    if smaller == 0:
+        return 0
+    elif smaller == 1:
+        return bigger
+
+    s = smaller >> 1
+    half_prod = _multiply(s, bigger)
+
+    if smaller % 2 == 0:
+       return half_prod + half_prod
+    else:
+        return half_prod + half_prod + bigger
+
+print multiply(4, 5)  
