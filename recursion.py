@@ -221,27 +221,23 @@ def _permutate(s):
 
     return x + [[letter_list[0]] + y for y in x]
 
-print sorted(permutate("onion"))
+# print sorted(permutate("onion"))
 
 #Print all valid combinations of n pairs of parenthesis.
 # () n=1
 # ()() (()) n=2
 # ()()() ((())) (())() ((())) ()(())   n=3
 #'new' set goes inside, in front or after
-def paren(left, right=None):
-    if right is None:
-        right = left  # allows calls with one argument
+def foo(n):
+    _foo('', 0, 0, n)
 
-    if left == right == 0: # base case
-        yield ""
-
+def _foo(output, open, close, pairs):
+    if open == pairs and close == pairs:
+        print output
     else:
-        if left > 0:
-            for p in paren(left-1, right): # first recursion
-                yield "("+p
+        if open < pairs:
+            _foo(output+'(', open+1, close, pairs)
+        if close < open:
+            _foo(output+')', open, close+1, pairs)
 
-        if right > left:
-            for p in paren(left, right-1): # second recursion
-                yield ")"+p
-
-print paren(3)
+foo(5)
