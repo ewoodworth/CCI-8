@@ -127,4 +127,27 @@ def _find_the_magic_bs(A, start, end):
     else:
         return _find_the_magic_bs(A, mid+1, end)
 
-print find_the_magic_bs(A2)
+# print find_the_magic_bs(A1)
+
+def find_the_magic(A):
+    return _find_the_magic(A, 0, len(A)-1)
+
+def _find_the_magic(A, start, end):
+    if end < start:
+        return -1
+    mid_index = (start + end)/2
+    mid_value = A[mid_index]
+    if mid_value == mid_index:
+        print mid_index
+    
+    left_index = min(mid_index - 1, mid_value)
+    left = _find_the_magic(A, start, left_index)
+    if left >= 0:
+        return left
+
+    right_index = max(mid_index + 1, mid_value)
+    right = _find_the_magic(A, right_index, end)
+
+    return right
+
+find_the_magic(A2)
