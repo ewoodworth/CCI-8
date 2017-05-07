@@ -183,4 +183,17 @@ def _multiply(smaller, bigger):
     else:
         return half_prod + half_prod + bigger
 
-print multiply(4, 5)  
+# print multiply(4, 5)  
+
+#tower of hanoi https://interactivepython.org/runestone/static/pythonds/Recursion/TowerofHanoi.html  Total cut and paste, but there's no better way than this to get there
+
+def moveTower(height,fromPole, toPole, withPole):
+    if height >= 1:
+        moveTower(height-1,fromPole,withPole,toPole)
+        moveDisk(fromPole,toPole)
+        moveTower(height-1,withPole,toPole,fromPole)
+
+def moveDisk(fp,tp):
+    print("moving disk from",fp,"to",tp)
+
+moveTower(3,"A","B","C")
