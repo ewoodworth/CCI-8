@@ -200,12 +200,12 @@ def moveDisk(fp,tp):
 
 
 # Write a method to compose all permutations of a string with no duplicates Pretty much like subsets but string methods or use ennumerate and then it's alsmost identical. See also http://www.jeremy-boyd.com/2010/10/18/compute-all-permutations-of-a-string-in-python/ for fun horrible solution at bottom of page
+
 from itertools import permutations
 def permutate(s):
     all_combos = []
     word_list = ["".join(item) for item in _permutate(s)]
     unique_substrings = list(set(word_list))
-    print unique_substrings
     for u_string in unique_substrings:
         combos = [''.join(p) for p in permutations(u_string)]
         all_combos += combos
@@ -222,3 +222,26 @@ def _permutate(s):
     return x + [[letter_list[0]] + y for y in x]
 
 print sorted(permutate("onion"))
+
+#Print all valid combinations of n pairs of parenthesis.
+# () n=1
+# ()() (()) n=2
+# ()()() ((())) (())() ((())) ()(())   n=3
+#'new' set goes inside, in front or after
+def paren(left, right=None):
+    if right is None:
+        right = left  # allows calls with one argument
+
+    if left == right == 0: # base case
+        yield ""
+
+    else:
+        if left > 0:
+            for p in paren(left-1, right): # first recursion
+                yield "("+p
+
+        if right > left:
+            for p in paren(left, right-1): # second recursion
+                yield ")"+p
+
+print paren(3)
