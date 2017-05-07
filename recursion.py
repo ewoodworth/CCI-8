@@ -150,4 +150,17 @@ def _find_the_magic(A, start, end):
 
     return right
 
-find_the_magic(A2)
+# find_the_magic(A2)
+
+#return all subsets of a set
+
+
+def subsets(l):
+    if l == []:
+        return [[]]
+
+    x = subsets(l[1:])
+
+    return x + [[l[0]] + y for y in x]
+
+print (subsets([1, 2, 3]))
