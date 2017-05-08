@@ -228,16 +228,55 @@ def _permutate(s):
 # ()() (()) n=2
 # ()()() ((())) (())() ((())) ()(())   n=3
 #'new' set goes inside, in front or after
-def foo(n):
-    _foo('', 0, 0, n)
 
-def _foo(output, open, close, pairs):
+def get_paren_possibilities(n):
+    _get_paren_possibilities('', 0, 0, n)
+
+def _get_paren_possibilities(output, open, close, pairs):
     if open == pairs and close == pairs:
         print output
     else:
         if open < pairs:
-            _foo(output+'(', open+1, close, pairs)
+            _get_paren_possibilities(output+'(', open+1, close, pairs)
         if close < open:
-            _foo(output+')', open, close+1, pairs)
+            _get_paren_possibilities(output+')', open, close+1, pairs)
 
-foo(5)
+# get_paren_possibilities(5)
+
+#Write a paint_fill function that starts from a point onscreen and moves outward radially SPOILER: this is a depth first graph traversal
+
+def paint_fill(screen, r, c, ncolor):
+    if screen[r][c] == ncolor:
+        return False
+    return paint_fill(screen, r, c, screen[r][c], ncolor)
+
+def paint_fill(screen, r, c, ocolor, ncolor):
+    if r<0 or r>=len(screen) or c<0 or c>=len(screen[0]):
+        return False
+
+    if screen[r][c] == ocolor:
+        screen[r][c] = ncolor
+        paint_fill(screen, r-1, c, ocolor, ncolor)  # up
+        paint_fill(screen, r+1, c, ocolor, ncolor)  # down
+        paint_fill(screen, r, c-1, ocolor, ncolor)  # left
+        paint_fill(screen, r, c+1, ocolor, ncolor)  # right
+
+    return True
+
+# how many ways can you make n-cents with US coinage
+
+@memoize_awesome
+def make_money(cents):
+    if cents < 0:
+        return 0
+    elif cents == 0:
+        return 1
+    else:
+        return (make_money(cents - 1) + 
+               make_money(cents - 5) + 
+               make_money(cents - 10)+
+               make_money(cents - 25))
+
+print make_money(200)
+
+#how many ways can you arrance 8 queens on a chessboard so they are all safe
