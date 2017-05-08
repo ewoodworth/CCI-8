@@ -279,4 +279,4 @@ def make_money(cents):
 
 print make_money(200)
 
-#how many ways can you arrance 8 queens on a chessboard so they are all safe
+
